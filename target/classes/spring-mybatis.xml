@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/aop https://www.springframework.org/schema/aop/spring-aop.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/util https://www.springframework.org/schema/util/spring-util.xsd">
+    <!--声明数据源，连接数据库-->
+    <!--    https://github.com/alibaba/druid/wiki/DruidDataSource%E9%85%8D%E7%BD%AE-->
+
+<!--    这里调用db.properties报错，暂时直接写上-->
+    <context:component-scan base-package="com.yamlapkei.service" />
+    <bean id="myDataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+        <property name="url" value="jdbc:mysql://localhost:3306/blog" />
+        <property name="username" value="root" />
+        <property name="password" value="root" />
+        <property name="filters" value="stat" />
+
+    </bean>
+    <!--        声明mybatis中提供的sqlSessionFactoryBean类，类内部创建SqlSessionFactory-->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <!--        把数据库连接池赋给dataSource属性-->
+        <property name="dataSource" ref="myDataSource"/>
+        <property name="mapperLocations" value="classpath:com/yamlapkei/dao/user_info/*.xml"/>
+
+    </bean>
+    <!--    创建dao对象，使用SqlSession的getMapper(StudentDao.class)-->
+    <!--    MapperScanerConfigurer:在内部调用getMapper()生成每个dao接口的代理对象,对象名默认类名首字母小写-->
+    <!--    不需要id-->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <!--        指定dao接口所在的包名,多个包用","隔开-->
+        <property name="basePackage" value="com.yamlapkei.dao.user_info"/>
+    </bean>
+    <tx:annotation-driven/>
+    <!--    声明自动代理生成器：使用aspectJ框架内部的功能，创建目标的代理对象，如果期望有接口的目标类也用cglib动态代理，添加proxy-target-class=true-->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="myDataSource"/>
+    </bean>
+<!--    <aop:aspectj-autoproxy proxy-target-class="true"/>-->
+
+</beans>
