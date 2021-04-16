@@ -19,7 +19,7 @@ public class MyInterceptor implements HandlerInterceptor {
         StringBuffer url = request.getRequestURL();
 
         //2.特殊请求直接放行
-        if(url.indexOf("login.json")>=0){
+        if(url.indexOf("login.json")>=0||url.indexOf("test")>=0){
 
             return true;
         }

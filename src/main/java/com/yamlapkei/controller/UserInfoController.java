@@ -1,6 +1,7 @@
 package com.yamlapkei.controller;
 
 import com.mysql.jdbc.StringUtils;
+import com.yamlapkei.exception.GlobalException;
 import com.yamlapkei.service.UserInfoService;
 import com.yamlapkei.view.Result;
 import com.yamlapkei.view.UserInfo;
@@ -24,6 +25,12 @@ public class UserInfoController {
     @Autowired
     private UserInfoService userInfoService;
 
+    //测试异常处理器，修改拦截器放行
+    @RequestMapping("/test.do")
+    public String test() throws Exception {
+//        throw new GlobalException("test");
+        throw new Exception();
+    }
     @RequestMapping("/index.do")
     public String index() {
         return "admin/index";
@@ -38,21 +45,21 @@ public class UserInfoController {
 
     @RequestMapping("/login.json")
     @ResponseBody
-    public Result loginsubmit(ModelMap map, HttpServletRequest request){
+    public Result loginsubmit(ModelMap map, HttpServletRequest request) throws GlobalException {
         //1获取参数
         String name = request.getParameter("loginName");
         String password = request.getParameter("password");
         //2.校验参数
         if (StringUtils.isNullOrEmpty(name) || StringUtils.isNullOrEmpty(password)) {
-            return Result.error("账户密码不能为空");
+            throw new GlobalException("账户密码不能为空");
         }
         UserInfo userInfo = userInfoService.selectUser(name,password);
         if(userInfo==null){
-            return Result.error("账户或密码不正确");
+            throw new GlobalException("账户或密码不正确");
         }
         //3.设置session
         request.getSession().setAttribute("userInfo",userInfo);
-        return Result.success().add("key","test");
+        return Result.success();
     }
 
     @RequestMapping("/logout.do")

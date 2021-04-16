@@ -7,9 +7,9 @@ public class GlobalException extends Exception{
     private static final long serialVersionUID = 7403691834562752994L;
     private String message;
 
-    public GlobalException(String message, String message1) {
+    public GlobalException(String message) {
         super(message);
-        this.message = message1;
+        this.message = message;
     }
 
     @Override
