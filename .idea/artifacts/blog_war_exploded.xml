@@ -14,6 +14,7 @@
           <element id="module-output" name="blog" />
         </element>
         <element id="directory" name="lib">
+          <element id="library" level="project" name="Maven: log4j:log4j:1.2.17" />
           <element id="library" level="project" name="Maven: org.springframework:spring-webmvc:5.2.5.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework:spring-beans:5.2.5.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework:spring-context:5.2.5.RELEASE" />

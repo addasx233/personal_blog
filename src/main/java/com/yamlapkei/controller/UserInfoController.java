@@ -6,6 +6,7 @@ import com.yamlapkei.service.UserInfoService;
 import com.yamlapkei.view.Result;
 import com.yamlapkei.view.UserInfo;
 import org.apache.ibatis.annotations.Param;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -21,6 +22,7 @@ import javax.servlet.http.HttpSession;
 @Controller
 @RequestMapping("/admin")
 public class UserInfoController {
+    private Logger logger = Logger.getLogger(this.getClass());
 
     @Autowired
     private UserInfoService userInfoService;
@@ -28,6 +30,7 @@ public class UserInfoController {
     //测试异常处理器，修改拦截器放行
     @RequestMapping("/test.do")
     public String test() throws Exception {
+        logger.debug("执行测试页面");
 //        throw new GlobalException("test");
         throw new Exception();
     }
@@ -38,6 +41,7 @@ public class UserInfoController {
 
     @RequestMapping("/login.do")
     public ModelAndView login() {
+        logger.debug("进入登陆页面");
         ModelAndView mv = new ModelAndView();
         mv.setViewName("admin/login");
         return mv;
@@ -57,6 +61,7 @@ public class UserInfoController {
         if(userInfo==null){
             throw new GlobalException("账户或密码不正确");
         }
+        logger.debug("用户"+name+"登陆成功");
         //3.设置session
         request.getSession().setAttribute("userInfo",userInfo);
         return Result.success();
@@ -64,6 +69,8 @@ public class UserInfoController {
 
     @RequestMapping("/logout.do")
     public String logout(HttpSession session){
+        UserInfo userInfo = (UserInfo) session.getAttribute("userInfo");
+        logger.debug(userInfo.getName()+"退出登录");
         session.invalidate();
         return "admin/login";
     }
