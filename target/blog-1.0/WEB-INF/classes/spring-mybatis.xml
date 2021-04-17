@@ -29,7 +29,7 @@
     <!--    不需要id-->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
         <!--        指定dao接口所在的包名,多个包用","隔开-->
-        <property name="basePackage" value="com.yamlapkei.dao.user_info"/>
+        <property name="basePackage" value="com.yamlapkei.dao"/>
     </bean>
     <tx:annotation-driven/>
     <!--    声明自动代理生成器：使用aspectJ框架内部的功能，创建目标的代理对象，如果期望有接口的目标类也用cglib动态代理，添加proxy-target-class=true-->

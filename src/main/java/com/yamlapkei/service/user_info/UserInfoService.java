@@ -1,4 +1,4 @@
-package com.yamlapkei.service;
+package com.yamlapkei.service.user_info;
 
 import com.yamlapkei.dao.user_info.UserInfoDao;
 import com.yamlapkei.view.UserInfo;

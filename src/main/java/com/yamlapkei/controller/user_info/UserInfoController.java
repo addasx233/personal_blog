@@ -1,18 +1,15 @@
-package com.yamlapkei.controller;
+package com.yamlapkei.controller.user_info;
 
 import com.mysql.jdbc.StringUtils;
 import com.yamlapkei.exception.GlobalException;
-import com.yamlapkei.service.UserInfoService;
+import com.yamlapkei.service.user_info.UserInfoService;
 import com.yamlapkei.view.Result;
 import com.yamlapkei.view.UserInfo;
-import org.apache.ibatis.annotations.Param;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 

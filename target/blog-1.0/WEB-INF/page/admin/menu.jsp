@@ -27,7 +27,7 @@
                         <li class="menu-item">
                             <a href="javascript:;">分类管理<i class="icon-keyboard_arrow_left"></i></a>
                             <ul>
-                                <li><a href="${pageContext.request.contextPath}/type/list.action">文章分类</a></li>
+                                <li><a href="${pageContext.request.contextPath}/type_info/list.do">文章分类</a></li>
                             </ul>
                         </li>
 
