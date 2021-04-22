@@ -131,7 +131,7 @@
         });
 
         $.ajax({
-            url : "${pageContext.request.contextPath}/type/save.json",
+            url : "${pageContext.request.contextPath}/type_info/save.json",
             type: "POST",
             dataType: "json",
             traditional: "true",

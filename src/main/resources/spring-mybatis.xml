@@ -11,7 +11,7 @@
 <!--    这里调用db.properties报错，暂时直接写上-->
     <context:component-scan base-package="com.yamlapkei.service" />
     <bean id="myDataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
-        <property name="url" value="jdbc:mysql://localhost:3306/blog" />
+        <property name="url" value="jdbc:mysql://localhost:3306/blog?useUnicode=true&amp;characterEncoding=UTF-8" />
         <property name="username" value="root" />
         <property name="password" value="root" />
         <property name="filters" value="stat" />
@@ -22,7 +22,7 @@
         <!--        把数据库连接池赋给dataSource属性-->
         <property name="dataSource" ref="myDataSource"/>
         <property name="mapperLocations" value="classpath:com/yamlapkei/dao/user_info/*.xml"/>
-
+        <property name="configLocation" value="classpath:mybatis-config.xml"/>
     </bean>
     <!--    创建dao对象，使用SqlSession的getMapper(StudentDao.class)-->
     <!--    MapperScanerConfigurer:在内部调用getMapper()生成每个dao接口的代理对象,对象名默认类名首字母小写-->

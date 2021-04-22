@@ -12,4 +12,27 @@
         select * from  type_info order by sort
     </select>
 
+<!--    插入一条-->
+    <insert id="insert">
+        insert into type_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="sort != null and sort != ''">sort,</if>
+            <if test="name != null and name != ''">name,</if>
+        </trim>
+        values
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="sort != null and sort != ''">#{sort},</if>
+            <if test="name != null and name != ''">#{name},</if>
+        </trim>
+    </insert>
+
+    <update id="update">
+        update type_info
+        <set>
+            <if test="sort != null and sort != ''">sort=#{sort},</if>
+            <if test="name != null and name != ''">name=#{name},</if>
+        </set>
+         where id = #{id}
+    </update>
+
 </mapper>
